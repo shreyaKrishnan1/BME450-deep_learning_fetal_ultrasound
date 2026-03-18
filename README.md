@@ -13,3 +13,5 @@ Labeled dataset of fetal tumors
 Labels: no tumor, benign tumor, cancerous tumor
 https://www.kaggle.com/datasets/orvile/ultrasound-fetus-dataset
 
+Review of 14 datasets: 
+https://pubmed.ncbi.nlm.nih.gov/40775990/
