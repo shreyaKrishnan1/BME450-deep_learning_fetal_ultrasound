@@ -1,82 +1,22 @@
-# BME450-fetal_ultrasound
-Github: https://github.com/shreyaKrishnan1/BME450-fetal_ultrasound/invitations
+# Deep Learning for Fetal Ultrasound Analysis to improve Ventriculomegaly Diagnoses
+## Team Members
+Shreya Krishnan (shreyakrishnan1), Aditi Choudhury (adi-c23)
+## Project Description
+Fetal lateral ventriculomegaly (FVM) is a condition where the lateral ventricles are enlarged in utero, diagnosed primarily by ultrasound of the fetal head during pregnancy [1]. FVM results in a wide range of neurodevelopmental outcomes, including motor and cognitive impairment [2]. Typically, FVM is diagnosed when the lateral ventricle size is greater than 10 mm [1]. Diagnosis requires identification of the lateral ventricle on ultrasound, measurement, and classification. Manual segmentation of the medical image can be time-consuming, especially since it requires clinical expertise [3]. 
 
-Clinical Significance:
-Need to do this part
+We propose a deep learning model workflow to address challenges in FVM diagnosis. This workflow is split into two parts: (A) automated segmentation of the lateral ventricle and (B) detection of FVM. This workflow can provide rapid insights for medical providers, improving diagnostic accuracy for lateral ventriculomegaly.
 
-Datasets:
-Fetal head and lateral ventricle dataset:
-https://pmc.ncbi.nlm.nih.gov/articles/PMC10630602/
-https://zenodo.org/records/8265464
+For part (A), a dataset of 3882 annotated fetal head ultrasound images will be used [4]. A TransUNet algorithm will be fit to this dataset to segment the lateral ventricle. The model will assign a label to each pixel in the image to indicate whether it is: (i) part of lateral ventricles, (ii) part of the brain but not lateral ventricles, or (iii) not part of the brain. Once model accuracy of 80% is established, the segmentation will be used in part (B) to detect FVM.
 
-Fetal head dataset for predicting mode of delivery: 
-https://www.nature.com/articles/s41597-024-03266-4
+For part (B), a dataset of 1726 images of fetal head ultrasounds labeled by fetal brain abnormality will be used [5]. The abnormality labels will be modified into a binary categorical variable with classes of (i) FVM and (ii) not FVM. Given that there are many more non-FVM images than FVM images in the dataset, minority oversampling will be used to balance minority and majority classes for model training. A multimodal classifier will be trained using the raw ultrasound images and segmentation results from part (A) classify if a fetal ultrasound image is indicative of lateral ventriculomegaly.
 
-Labeled dataset of fetal tumors Labels: no tumor, benign tumor, cancerous tumor 
-https://www.kaggle.com/datasets/orvile/ultrasound-fetus-dataset
+### References:
+[1] A. A. Alluhaybi, K. Altuhaini, and M. Ahmad, “Fetal Ventriculomegaly: A Review of Literature,” Cureus, vol. 14, no. 2, Feb. 2022, doi: https://doi.org/10.7759/cureus.22352.
 
-Review of 14 fetal ultrasound datasets (can maybe use one or multiple of these): 
-https://pubmed.ncbi.nlm.nih.gov/40775990/
+[2] V. Giorgione, K. K. Haratz, S. Constantini, R. Birnbaum, and G. Malinger, “Fetal cerebral ventriculomegaly: What do we tell the prospective parents?,” Prenatal Diagnosis, vol. 42, no. 13, pp. 1674–1681, Nov. 2022, doi: https://doi.org/10.1002/pd.6266.
 
-Fetal phantom dataset:
-https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10146252
-https://www.kaggle.com/datasets/mdmostakinali/fpus23-an-ultrasound-fetus-phantom-dataset
+[3] Farzan Vahedifard et al., “Automatic Ventriculomegaly Detection in Fetal Brain MRI: A Step-by-Step Deep Learning Model for Novel 2D-3D Linear Measurements,” Diagnostics, vol. 13, no. 14, pp. 2355–2355, Jul. 2023, doi: https://doi.org/10.3390/diagnostics13142355.
 
-Dataset of fetal head abnormalities:
-https://universe.roboflow.com/hritwik-trivedi-gkgrv/fetal-brain-abnormalities-ultrasound/dataset/1
+[4] M. Alzubaidi, M. Agus, M. Makhlouf, F. Anver, K. Alyafei, and M. Househ, “Large-scale annotation dataset for fetal head biometry in ultrasound images,” Data in Brief, vol. 51, p. 109708, Dec. 2023, doi: https://doi.org/10.1016/j.dib.2023.109708.
 
-
-Existing Models:
-One ML model on fetal ultrasounds, can work some of these ideas into our own:
-https://github.com/BioMedIA-MBZUAI/FetalCLIP
-
-Medical image segmentation models:
-https://pmc.ncbi.nlm.nih.gov/articles/PMC11300773/
-
-Models for ventriculomegaly: 
-https://pmc-ncbi-nlm-nih-gov.ezproxy.lib.purdue.edu/articles/PMC12734337/
-
-Preprocessing techniques:
-LCPC transform: standardizes shapes
-https://www.tsg-lab.org/image-analysis-algorithms
-Other things I remember form 357:
-Standardization (of color and scale)
-
-
-Proposal Requirements:
-
-Title: Deep Learning for Fetal Ultrasound Analysis to improve Ventriculomegaly Diagnoses
-
-Team Members: Shreya Krishnan, Aditi Choudhury
-
-Project Description:
-
-[Clinical description of ventriculomegaly and current diagnostic techniques, and challenges]
-
-To address this challenge, we propose to create a deep learning model which provides segmentation of the lateral ventricle (LV) and subsequently detects the presence of ventriculomegaly from fetal brain ultrasound images. This can provide a rapid workflow for medical providers to better understand whether a fetus is at risk of ventriculomegaly, improving diagnostic accuracy. Our project is split into two parts: (a) segmentation of the lateral ventricle and (b) detection of ventriculomegaly.
-
-For part (a), we will use a dataset of 3882 annotated fetal head images, titled “Large-Scale Annotation Dataset for Fetal Head Biometry in Ultrasound Images” [A]. We will fit a TransUNet deep learning algorithm to this data in order to accomplish segmentation of the LV. The segmentation model will label each pixel in the image as “LV”, “brain not LV”, or “not brain”. Once we have established model accuracy of 90%, we will then proceed to part (B) of detecting ventriculomegaly using the segmentation of the LV completed in part (a). Additionally, from segmentation alone, physicians can analyze size of the ventricle and development of the fetus.
-
-For part (b), we will use a subset from a dataset of 1726 images of fetal head ultrasounds labeled by fetal brain abnormality [B]. We will modify the dataset labels to be either “LV” or “not LV.” Given that there are many more non-ventriculomegaly images than ventriculomegaly images in the dataset, oversampling techniques will be used to balance both the minority and majority classes during model training. For each image, we will first apply the segmentation model from part (a) to label each pixel in the image. We then pass the pixel labels and the image into a classifier to classify each fetal ultrasound image as “ventriculomegaly” or “non-ventriculomegaly.”
-
-
-References:
-
-[A] https://zenodo.org/records/8265464
-
-[B] https://universe.roboflow.com/hritwik-trivedi-gkgrv/fetal-brain-abnormalities-ultrasound/dataset/1
-
-Max ½ page. Include information on:
-What dataset you plan to use
-Goal of the project
-
-
-
-Other things that might be useful to include
-Existing models/research
-Clinical Significance
-What types of preprocessing we could use
-
-
-we could use
-
+[5] H. Trivedi, “Fetal Brain Abnormalities Ultrasound Dataset,” Roboflow, 2023. https://universe.roboflow.com/hritwik-trivedi-gkgrv/fetal-brain-abnormalities-ultrasound/dataset/1 (accessed Mar. 22, 2026).
