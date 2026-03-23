@@ -1,7 +1,7 @@
 ## Title 
 Deep Learning for Fetal Ultrasound Analysis to improve Diagnosis of Fetal Lateral Ventriculomegaly
 ## Team Members
-Shreya Krishnan (shreyakrishnan1), Aditi Choudhury (adi-c23)
+Shreya Krishnan (shreyaKrishnan1), Aditi Choudhury (adi-c23)
 ## Project Description
 Fetal lateral ventriculomegaly (FLV) is a condition where the lateral ventricles are enlarged in utero, diagnosed primarily by ultrasound of the fetal head during pregnancy [1]. FLV results in a wide range of neurodevelopmental outcomes, including motor and cognitive impairment [2]. Typically, FLV is diagnosed when the lateral ventricle size is greater than 10 mm [1]. Diagnosis requires identification of the lateral ventricle on ultrasound, measurement, and classification. Manual segmentation of the medical image can be time-consuming, especially since it requires clinical expertise [3]. 
 
