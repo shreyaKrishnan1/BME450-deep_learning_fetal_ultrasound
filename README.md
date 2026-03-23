@@ -1,4 +1,5 @@
-# Deep Learning for Fetal Ultrasound Analysis to improve Diagnosis of Fetal Lateral Ventriculomegaly
+## Title 
+Deep Learning for Fetal Ultrasound Analysis to improve Diagnosis of Fetal Lateral Ventriculomegaly
 ## Team Members
 Shreya Krishnan (shreyakrishnan1), Aditi Choudhury (adi-c23)
 ## Project Description
