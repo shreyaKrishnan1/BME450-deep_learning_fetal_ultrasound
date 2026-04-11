@@ -40,5 +40,3 @@ save_files(dataset[:split_idx], 'train')
 save_files(dataset[split_idx:], 'val')
 
 print(f"Done! Dataset split into {split_idx} train and {len(dataset)-split_idx} val images.")
-
-        img_res = cv2.resize(img, img_size)
