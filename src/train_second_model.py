@@ -1,3 +1,8 @@
+'''
+This is currently a copy of the first model.
+Need to edit this code to become a second model.
+'''
+
 import torch
 import torch.optim as optim
 import segmentation_models_pytorch as smp
