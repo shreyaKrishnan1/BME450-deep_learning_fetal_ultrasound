@@ -8,7 +8,7 @@ import torch.optim as optim
 import segmentation_models_pytorch as smp
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-from src.data_loader import load_ultrasound_data
+from data_loader import load_ultrasound_data
 
 def train_model(model, train, device, epochs=50):
     criterion = smp.losses.DiceLoss(mode='binary')
@@ -90,4 +90,4 @@ if __name__ == "__main__":
     ).to(device)
 
     train_model(model, train, device, epochs=50)
-    test_model(model2, test, device)
+    test_model(model, test, device)

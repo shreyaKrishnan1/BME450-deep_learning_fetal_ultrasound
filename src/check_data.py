@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
-from src.data_loader import get_ultrasound_loaders
+from data_loader import load_ultrasound_data
 import torch
 
 def view_data():
-    train_loader, _ = get_ultrasound_loaders(
+    train_loader, _ = load_ultrasound_data(
         images_dir="images", 
         masks_dir="masks", 
         batch_size=1

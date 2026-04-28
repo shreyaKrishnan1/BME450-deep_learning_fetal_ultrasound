@@ -55,7 +55,7 @@ def load_ultrasound_data(images_dir="images", masks_dir="masks", batch_size=4):
     test_size = len(full_dataset) - train_size
     train_ds, test_ds = random_split(
         full_dataset, [train_size, test_size],
-        generator=torch.Generator().manual_seed(42)
+        generator=torch.Generator()
     )
     train_ds.dataset.transform = train_transform
     test_ds.dataset.transform = test_transform
