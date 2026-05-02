@@ -31,6 +31,9 @@ def get_model():
 
     return model
 
+loss_progression = [] #loss tracker 
+dice_progression = [] #dice tracker
+
 # 4. TRAINING LOOP
 def train_model(model, loader, epochs=30):
     optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-4)
@@ -56,7 +59,21 @@ def train_model(model, loader, epochs=30):
         
         epoch_loss = running_loss / len(loader)
         epoch_dice = running_dice / len(loader)
+        loss_progression.append(epoch_loss)
+        dice_progression.append(epoch_dice)
         print(f"Epoch {epoch+1}/{epochs} | Loss: {epoch_loss:.4f} | Dice: {epoch_dice:.4f}")
+    total_epochs = range(1, epochs+1)
+    plt.figure(1) 
+    plt.plot(total_epochs, loss_progression)
+    plt.title(f"Loss Progression over {epochs} Epochs")
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+
+    plt.figure(2)
+    plt.plot(total_epochs, dice_progression)
+    plt.title(f'DICE Progression over {epochs} Epochs')
+    plt.xlabel("Epoch")
+    plt.ylabel("DICE score")
 
 # 5. EVALUATION (Collects all samples for visualization)
 def evaluate_and_visualize(model, loader):

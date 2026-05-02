@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 from data_loader import load_ultrasound_data
 
+loss_progression = []
+dice_progression = []
 def train_model(model, train, device, epochs=50):
     criterion = smp.losses.DiceLoss(mode='binary')
     optimizer = optim.Adam(model.parameters(), lr=1e-4)
@@ -19,8 +21,11 @@ def train_model(model, train, device, epochs=50):
     
     for epoch in range(epochs):
         epoch_loss = 0
+        total_dice = 0
+        num_batches = 0
         loop = tqdm(train, desc=f"Epoch {epoch+1}/{epochs}")
         for batch in loop:
+            num_batches += 1
             images, masks = batch['image'].to(device), batch['mask'].to(device)
             
             optimizer.zero_grad()
@@ -31,6 +36,30 @@ def train_model(model, train, device, epochs=50):
             
             epoch_loss += loss.item()
             loop.set_postfix(loss=loss.item())
+            logits = model(images)
+            preds = (torch.sigmoid(logits) > 0.5).float()
+
+            inter = (preds * masks).sum()
+            dice = (2. * inter) / (preds.sum() + masks.sum() + 1e-8)
+            total_dice += dice.item()
+            loop.set_postfix(dice = dice.item())
+
+        average_loss = epoch_loss/num_batches
+        average_dice = total_dice/num_batches 
+        loss_progression.append(average_loss)
+        dice_progression.append(average_dice)
+    total_epochs = range(1, epochs+1)
+    plt.figure(1) 
+    plt.plot(total_epochs, loss_progression)
+    plt.title(f"Loss Progression over {epochs} Epochs")
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+
+    plt.figure(2)
+    plt.plot(total_epochs, dice_progression)
+    plt.title(f'DICE Progression over {epochs} Epochs')
+    plt.xlabel("Epoch")
+    plt.ylabel("DICE score")
             
 
 def test_model(model, test, device):
