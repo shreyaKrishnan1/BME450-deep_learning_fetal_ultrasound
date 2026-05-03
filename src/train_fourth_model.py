@@ -35,7 +35,8 @@ def combined_loss(outputs, targets):
     return 0.5 * bce_loss(outputs, targets) + 0.5 * dice_loss(outputs, targets)
 
 
-
+loss_progression = []
+dice_progression = []
 def train_model(model, train_loader, val_loader, epochs=50):
     optimizer = optim.Adam(model.parameters(), lr=1e-4)
 
@@ -67,6 +68,9 @@ def train_model(model, train_loader, val_loader, epochs=50):
         train_loss /= len(train_loader)
         train_dice /= len(train_loader)
 
+        loss_progression.append(train_loss)
+        dice_progression.append(train_dice)
+
         # ===== VALIDATION =====
         model.eval()
         val_dice = 0.0
@@ -93,6 +97,19 @@ def train_model(model, train_loader, val_loader, epochs=50):
             best_dice = val_dice
             torch.save(model.state_dict(), "best_model.pth")
             print("Saved new best model!")
+    total_epochs = range(1, epochs + 1)
+
+    plt.figure(1)
+    plt.plot(total_epochs, loss_progression)
+    plt.title(f'Loss Progression over {epochs} Epochs')
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+
+    plt.figure(2)
+    plt.plot(total_epochs, dice_progression)
+    plt.title(f'DICE Progression over {epochs} Epochs')
+    plt.xlabel("Epoch")
+    plt.ylabel("DICE score")
 
 
 def evaluate_and_visualize(model, loader):
