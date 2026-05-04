@@ -11,6 +11,9 @@ For part (A), a dataset of 3882 annotated fetal head ultrasound images will be u
 
 For part (B), a dataset of 1726 images of fetal head ultrasounds labeled by fetal brain abnormality will be used [5]. The abnormality labels will be modified into a binary categorical variable with classes of (i) FLV and (ii) not FLV. Given that there are many more non-FLV images than FLV images in the dataset, minority oversampling will be used to balance minority and majority classes for model training. A multimodal classifier will be trained using the raw ultrasound images and segmentation results from part (A) classify if a fetal ultrasound image is indicative of lateral ventriculomegaly.
 
+## Code Description
+Please find all our code in the src file. There are six models: 1, 2a, 2b, 3, 4, and 5, each in their own Jupyter Notebook file.
+
 
 ### References:
 [1] A. A. Alluhaybi, K. Altuhaini, and M. Ahmad, “Fetal Ventriculomegaly: A Review of Literature,” Cureus, vol. 14, no. 2, Feb. 2022, doi: https://doi.org/10.7759/cureus.22352.
